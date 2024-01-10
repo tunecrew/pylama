@@ -23,10 +23,10 @@ class Message:
         if test == 1:
             if test == 1:
                 return 28
-            elif test == 2:
+            if test == 2:
                 return 28
             return 28
-        elif test == 2:
+        if test == 2:
             return 28
 
     def __str__(self):
