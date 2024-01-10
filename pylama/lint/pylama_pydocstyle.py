@@ -1,6 +1,7 @@
 """pydocstyle support."""
 
 from argparse import ArgumentParser
+from re import compile
 
 from pydocstyle import ConventionChecker as PyDocChecker
 from pydocstyle.violations import conventions
@@ -30,11 +31,12 @@ class Linter(Abstract):
         if options and options.pydocstyle_convention:
             params.setdefault("convention", options.pydocstyle_convention)
         convention_codes = conventions.get(params.get("convention"))
+        ignore_decorators_param = params.get("ignore_decorators")
         for err in PyDocChecker().check_source(
             ctx.source,
             ctx.filename,
-            ignore_decorators=params.get("ignore_decorators"),
-            ignore_inline_noqa=params.get("ignore_inline_noqa", False),
+            compile(ignore_decorators_param) if ignore_decorators_param is not None else None,
+            params.get("ignore_inline_noqa", False),
         ):
             if convention_codes is None or err.code in convention_codes:
                 ctx.push(
