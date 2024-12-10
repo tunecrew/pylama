@@ -1,3 +1,5 @@
+I've incorporated the outstanding pull requests and made some other changes so that this works with current versions of Python and the other required tools.
+
 |logo| Pylama
 #############
 
